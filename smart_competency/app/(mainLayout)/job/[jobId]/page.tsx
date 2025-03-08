@@ -20,15 +20,15 @@ import { getFlagEmoji } from "@/app/utils/countriesList";
 import { JsonToHtml } from "@/components/general/JsonToHtml";
 import { saveJobPost, unsaveJobPost } from "@/app/actions";
 
-import arcjet, { detectBot } from "@/app/utils/arcjet";
-import { request } from "@arcjet/next";
+// import arcjet, { detectBot } from "@/app/utils/arcjet";
+// import { request } from "@arcjet/next";
 
-const aj = arcjet.withRule(
-    detectBot({
-        mode: "LIVE",
-        allow: ["CATEGORY:SEARCH_ENGINE", "CATEGORY:PREVIEW"],
-    })
-);
+// const aj = arcjet.withRule(
+//     detectBot({
+//         mode: "LIVE",
+//         allow: ["CATEGORY:SEARCH_ENGINE", "CATEGORY:PREVIEW"],
+//     })
+// );
 
 async function getJob(jobId: string, userId?: string) {
     const [jobData, savedJob] = await Promise.all([
@@ -87,13 +87,13 @@ type Params = Promise<{ jobId: string }>;
 
 const JobIdPage = async ({ params }: { params: Params }) => {
     const { jobId } = await params;
-    const req = await request();
+    // const req = await request();
 
-    const decision = await aj.protect(req);
+    // const decision = await aj.protect(req);
 
-    if (decision.isDenied()) {
-        throw new Error("forbidden");
-    }
+    // if (decision.isDenied()) {
+    //     throw new Error("forbidden");
+    // }
 
     const session = await auth();
     const { jobData, savedJob } = await getJob(jobId, session?.user?.id);
@@ -188,7 +188,7 @@ const JobIdPage = async ({ params }: { params: Params }) => {
                                 </div>
                                 <p className="text-sm text-muted-foreground mt-1">
                                     Please let {jobData.company.name} know you found this job on
-                                    JobMarshal. This helps us grow!
+                                    HireKaro. This helps us grow!
                                 </p>
                             </div>
                             <form>
