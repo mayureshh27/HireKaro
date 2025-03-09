@@ -34,7 +34,7 @@ import { jobSchema } from "@/app/utils/zodSchemas";
 import { SalaryRangeSelector } from "../general/SalaryRangeSelector";
 import JobDescriptionEditor from "../richTextEditor/JobDescriptionEditor";
 import BenefitsSelector from "../general/BenefitsSelector";
-import { JobListingDurationSelector } from "../general/JobListingDurationSelector";
+// import { JobListingDurationSelector } from "../general/JobListingDurationSelector";
 import { createJob } from "@/app/actions";
 
 interface CreateJobFormProps {
@@ -78,12 +78,19 @@ export function CreateJobForm({
     async function onSubmit(values: z.infer<typeof jobSchema>) {
         try {
             setPending(true);
+            console.log("Submitting form with values:", values); // Log the values before submission
 
-            await createJob(values);
-        } catch {
+            const result = await createJob(values);
+            console.log("createJob result:", result); //Log the result of createJob function
+
+            toast.success("Job created successfully!");
+
+        } catch (error) {
+            console.error("Error submitting form:", error); // Log the error
             toast.error("Something went wrong. Please try again.");
         } finally {
             setPending(false);
+            console.log("Submission complete.");
         }
     }
     return (
@@ -406,25 +413,25 @@ export function CreateJobForm({
                     </CardContent>
                 </Card>
 
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Job Listing Duration</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <FormField
-                            control={form.control}
-                            name="listingDuration"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormControl>
-                                        <JobListingDurationSelector field={field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </CardContent>
-                </Card>
+                {/*<Card>*/}
+                {/*    <CardHeader>*/}
+                {/*        <CardTitle>Job Listing Duration</CardTitle>*/}
+                {/*    </CardHeader>*/}
+                {/*    <CardContent>*/}
+                {/*        <FormField*/}
+                {/*            control={form.control}*/}
+                {/*            name="listingDuration"*/}
+                {/*            render={({ field }) => (*/}
+                {/*                <FormItem>*/}
+                {/*                    <FormControl>*/}
+                {/*                        /!*<JobListingDurationSelector field={field} />*!/*/}
+                {/*                    </FormControl>*/}
+                {/*                    <FormMessage />*/}
+                {/*                </FormItem>*/}
+                {/*            )}*/}
+                {/*        />*/}
+                {/*    </CardContent>*/}
+                {/*</Card>*/}
                 <Button type="submit" className="w-full" disabled={pending}>
                     {pending ? "Submitting..." : "Continue"}
                 </Button>

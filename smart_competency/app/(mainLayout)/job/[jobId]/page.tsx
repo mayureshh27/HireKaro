@@ -35,7 +35,7 @@ async function getJob(jobId: string, userId?: string) {
         prisma.jobPost.findUnique({
             where: {
                 id: jobId,
-                status: "ACTIVE",
+                // status: "ACTIVE",
             },
             select: {
                 jobTitle: true,
@@ -82,6 +82,8 @@ async function getJob(jobId: string, userId?: string) {
         savedJob,
     };
 }
+
+
 
 type Params = Promise<{ jobId: string }>;
 

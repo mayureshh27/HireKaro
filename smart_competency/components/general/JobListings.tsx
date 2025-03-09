@@ -13,7 +13,7 @@ async function getJobs(
     const skip = (page - 1) * pageSize;
 
     const where = {
-        status: JobPostStatus.ACTIVE,
+        // status: JobPostStatus.ACTIVE,
         ...(jobTypes.length > 0 && {
             employmentType: {
                 in: jobTypes,
